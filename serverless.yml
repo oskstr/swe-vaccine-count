@@ -1,0 +1,42 @@
+service: swe-vaccine-count
+
+provider:
+  name: aws
+  region: eu-north-1
+  runtime: nodejs12.x
+  lambdaHashingVersion: 20201221
+
+functions:
+  vaccine-count:
+    handler: handler.vaccineCount
+    events:
+      - http:
+          path: vaccine-count
+          method: GET
+          cors: true
+
+resources:
+  Resources:
+    vaccineCount:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: vaccineCount
+        AttributeDefinitions:
+          - AttributeName: mostRecent
+            AttributeType: S 
+        KeySchema:
+          - AttributeName: mostRecent
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+
+custom:
+  dynamodb:
+    stages:
+      - ${self:provider.stage}
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-dynamodb-local
+  - serverless-offline

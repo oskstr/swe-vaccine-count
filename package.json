@@ -1,0 +1,40 @@
+{
+  "name": "swe-vaccine-count",
+  "version": "1.0.0",
+  "description": "Twitter bot to post number of people in Sweden who have received the COVID-19 vaccine",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oskstr/swe-vaccine-count.git"
+  },
+  "keywords": [
+    "twitter",
+    "serverless",
+    "aws",
+    "lambda",
+    "dynamodb"
+  ],
+  "author": "Oskar Strömberg",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/oskstr/swe-vaccine-count/issues"
+  },
+  "homepage": "https://github.com/oskstr/swe-vaccine-count#readme",
+  "dependencies": {
+    "aws-lambda": "^1.0.6",
+    "aws-sdk": "^2.912.0",
+    "table-scraper": "^1.0.3",
+    "twitter": "^1.7.1"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.76",
+    "@types/twitter": "^1.7.0",
+    "serverless-dynamodb-local": "^0.2.39",
+    "serverless-offline": "^7.0.0",
+    "serverless-plugin-typescript": "^1.1.9",
+    "typescript": "^4.2.4"
+  }
+}
