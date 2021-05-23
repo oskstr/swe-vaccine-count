@@ -20,7 +20,7 @@ provider:
 
 functions:
   vaccine-count:
-    handler: dist/handler.vaccineCount
+    handler: handler.vaccineCount
     events:
       - schedule: rate(10 minutes)
 
@@ -41,4 +41,5 @@ resources:
           WriteCapacityUnits: 1
 
 plugins:
+  - serverless-plugin-typescript
   - serverless-offline
