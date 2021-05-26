@@ -5,6 +5,7 @@ const LENGTH = 13
 const BLOCK = 100/LENGTH
 
 const blocks = (percentage: number) => Math.floor(percentage/BLOCK)
+const toFloat = (num: string) => parseFloat(num.replace(",", "."))
 
 const RED_SQUARE = '🟥'
 const YELLOW_SQUARE = '🟨'
@@ -20,8 +21,8 @@ export class VaccineEntry {
         const oneDose = result[ONE_DOSE_KEY]
         const twoDoses = result[TWO_DOSE_KEY]
 
-        const twoBlocks = blocks(parseFloat(twoDoses))
-        const oneBlocks = blocks(parseFloat(oneDose)) - twoBlocks
+        const twoBlocks = blocks(toFloat(twoDoses))
+        const oneBlocks = blocks(toFloat(oneDose)) - twoBlocks
         const restBlocks = LENGTH - oneBlocks - twoBlocks
 
         this.graph = GREEN_SQUARE.repeat(twoBlocks) + YELLOW_SQUARE.repeat(oneBlocks) + RED_SQUARE.repeat(restBlocks)
