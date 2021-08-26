@@ -1,7 +1,6 @@
 import { APIGatewayProxyResult } from 'aws-lambda'
 import { DynamoDB } from 'aws-sdk'
-// @ts-ignore
-import { get } from 'table-scraper'
+import { Tabletojson } from 'tabletojson';
 import { VaccineEntry } from './VaccineEntry'
 const Twitter = require('twitter')
 
@@ -16,10 +15,10 @@ const twitter = new Twitter({
     access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
 })
 
-export const vaccineCount = async (): Promise<APIGatewayProxyResult> => 
-    get(VACCINE_URL)
-        .then(([_, table]: [any, any]) => 
-            table.map((day: any) => new VaccineEntry(day)))
+export const vaccineCount = async (): Promise<APIGatewayProxyResult> =>
+    Tabletojson.convertUrl(VACCINE_URL, { useFirstRowForHeadings: true })
+        .then(([_, table]: [any, any, any]) =>
+          table.slice(1).map((day: any) => new VaccineEntry(day)))
         .then(async ([result]: [VaccineEntry]) => {
             const data = await db.put({
                 TableName: 'vaccineCount',
@@ -28,14 +27,14 @@ export const vaccineCount = async (): Promise<APIGatewayProxyResult> =>
                     date: result.date
                 },
                 ReturnValues: 'ALL_OLD'
-            }).promise()      
+            }).promise()
 
             const oldDate = data.Attributes ? data.Attributes.date : null
 
             return {
                 newDate: result.date !== oldDate,
                 ...result
-            }   
+            }
         })
         .then(async (data: { newDate: boolean } & VaccineEntry) => {
             if (data.newDate) {

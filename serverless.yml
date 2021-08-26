@@ -32,7 +32,7 @@ resources:
         TableName: vaccineCount
         AttributeDefinitions:
           - AttributeName: mostRecent
-            AttributeType: S 
+            AttributeType: S
         KeySchema:
           - AttributeName: mostRecent
             KeyType: HASH
