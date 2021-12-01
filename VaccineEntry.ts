@@ -1,5 +1,5 @@
 const ONE_DOSE_KEY = 'Andel (%) vaccinerademed minst 1 dos'
-const TWO_DOSE_KEY = 'Andel (%) vaccinerademed 2 doser'
+const TWO_DOSE_KEY = 'Andel (%) vaccinerademed minst 2 doser'
 
 const LENGTH = 13
 const BLOCK = 100/LENGTH
